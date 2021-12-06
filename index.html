@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
     <title>Portfolio</title>
@@ -21,31 +28,48 @@
       </section>
       <section id="education">
         <h3>Educação</h3>
-        <p></p>
+        <ul>
+          <li>
+            Engenharia de computação - UNISC<span>desde 2017</span>
+            <p>Cursando</p>
+          </li>
+          <li>
+            Oficina de Criatividade e Inovação<span>2017</span>
+            <p>Curso de 16 horas no Tecno Unisc</p>
+          </li>
+          <li>
+            Oficina de Design Thinking<span>2017</span>
+            <p>Curso de 6 horas no Tecno Unisc</p>
+          </li>
+          <li>
+            Ensino médio<span>2016</span>
+            <p>Escola de Educação Básica Educar-se</p>
+          </li>
+        </ul>
       </section>
 
       <section id="programing-languages">
         <h3>Linguagens de Programação</h3>
-        <ul>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JavaScript</li>
-          <li>Typescript</li>
-          <li>Python</li>
-          <li>C#</li>
-          <li>SQL</li>
+        <ul role="list" class="skill-bar-list">
+          <li value="100" class="skill-exp-bar">HTML</li>
+          <li value="100" class="skill-exp-bar">CSS</li>
+          <li value="80" class="skill-exp-bar">JavaScript</li>
+          <li value="90" class="skill-exp-bar">Typescript</li>
+          <li value="60" class="skill-exp-bar">Python</li>
+          <li value="40" class="skill-exp-bar">C#</li>
+          <li value="60" class="skill-exp-bar">SQL</li>
         </ul>
       </section>
 
       <section id="framework-and-tecnologies">
         <h3>Frameworks e Tecnologias</h3>
-        <ul>
+        <ul role="list" class="skill-bar-list">
           <li>React JS</li>
-          <li>React TS</li>
-          <li>GitHub</li>
-          <li>Redux Toolkit</li>
-          <li>Azure DevOps</li>
-          <li>Styled Components</li>
+          <li value="100" class="skill-exp-bar">React TS</li>
+          <li value="100" class="skill-exp-bar">GitHub</li>
+          <li value="70" class="skill-exp-bar exp-70">Redux Toolkit</li>
+          <li value="80" class="skill-exp-bar">Azure DevOps</li>
+          <li value="100" class="skill-exp-bar">Styled Components</li>
         </ul>
       </section>
 
@@ -136,9 +160,15 @@
     </main>
 
     <footer>
-      <a href="mailto:thales.em@gmail.com">E-Mail</a>
-      <a href="https://github.com/ThalesMuller">Github</a>
-      <a href="www.linkedin.com/in/thalesemuller">Linkedin</a>
+      <a class="footer-icons" href="mailto:thales.em@gmail.com"
+        ><i class="fa-regular fa-envelope fa-2xl"></i
+      ></a>
+      <a class="footer-icons" href="https://github.com/ThalesMuller"
+        ><i class="fa-brands fa-github fa-2xl"></i
+      ></a>
+      <a class="footer-icons" href="https://linkedin.com/in/thalesemuller"
+        ><i class="fa-brands fa-linkedin fa-2xl"></i
+      ></a>
     </footer>
   </body>
 </html>
