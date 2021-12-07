@@ -233,3 +233,11 @@ footer .footer-icons {
   line-height: 1.225;
   max-width: 40ch;
 }
+
+#objectives {
+}
+#objectives p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  padding: 0.5rem 1rem;
+  max-width: 40ch;
+}
