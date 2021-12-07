@@ -55,20 +55,51 @@ span {
   font-family: "VT323", monospace;
 }
 
-body > header {
+.site-header {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+}
+.site-header div {
   color: var(--clr-neutral-100);
   text-align: center;
   padding: 1rem;
+  justify-self: center;
+  grid-column: span 3;
+}
+.site-header div h1 {
+  margin-bottom: 3px;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+.site-header div h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
 }
 
-body > header > h1 {
+.site-header::after,
+.site-header::before {
+  content: "";
+  height: min(40%, 50px);
+  width: 100%;
+  background: var(--clr-brand-primary-500);
+  border: none;
+}
+
+.site-header::after {
+  justify-self: flex-end;
+  transform: rotate(180deg);
+}
+.site-header::before {
+  justify-self: flex-start;
+}
+
+.site-header > h1 {
   font-family: "Press Start 2P", cursive;
   font-size: 2rem;
 }
 
 main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(calc(40ch + 2rem), 1fr));
   gap: 16px;
 
   padding: 1rem;
@@ -79,6 +110,22 @@ main > section {
   color: var(--clr-neutral-100);
   padding: 1rem;
   border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+section h3 {
+  font-size: clamp(0.9rem, 2vw, 1.125rem);
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  background: var(--highlight-gradient);
+  transform: translateX(-1.5rem);
+  transition: transform 125ms ease-in-out;
+  text-align: right;
+}
+
+section:hover,
+section:focus {
+  transform: scale(1.01);
 }
 
 ul.skill-bar-list {
@@ -95,6 +142,7 @@ li.skill-exp-bar {
   z-index: 1;
   border: 1px solid var(--clr-brand-primary-700);
   cursor: pointer;
+  font-size: 12px;
 }
 li.skill-exp-bar::after,
 li.skill-exp-bar::before {
@@ -113,8 +161,7 @@ li.skill-exp-bar::after {
   transition: transform 300ms ease-in-out;
 }
 
-li.skill-exp-bar:hover::after,
-li.skill-exp-bar:focus::after {
+li.skill-exp-bar:hover::after {
   transform: scaleX(0);
 }
 
@@ -156,4 +203,26 @@ body > footer {
 
 footer .footer-icons {
   color: var(--clr-neutral-100);
+}
+
+.basic-list {
+  padding: 0;
+  list-style: none;
+}
+.basic-list li {
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+.basic-list li span {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.basic-list li h4 {
+  font-size: 20px;
+  line-height: 1.1;
+}
+.basic-list li p {
+  line-height: 1.225;
+  max-width: 40ch;
 }
