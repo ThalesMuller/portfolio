@@ -4,28 +4,39 @@
   --clr-neutral-100: hsl(0, 0%, 100%);
   --clr-neutral-600: hsl(240, 6%, 13%);
   --clr-neutral-900: hsl(240, 4%, 5%);
-  --clr-brand-primary-700: hsl(276, 57%, 32%);
-  --clr-brand-primary-500: hsl(276, 62%, 52%);
-  --clr-highlight-500: hsl(43, 100%, 52%);
+  --clr-brand-primary-700: #3e1f47;
+  --clr-brand-primary-500: #4d194d;
+  --clr-highlight-500: #006466;
   --brand-grandient: linear-gradient(
     130deg,
     var(--clr-brand-primary-500),
     var(--clr-highlight-500)
   );
+
+  --highlight-gradient: linear-gradient(
+    130deg,
+    #006466,
+    #065a60,
+    #0b525b,
+    #144552,
+    #1b3a4b,
+    #212f45,
+    #272640,
+    #312244,
+    #3e1f47,
+    #4d194d
+  );
 }
 
 body {
-  background: linear-gradient(
-    130deg,
-    var(--clr-brand-primary-500),
-    var(--clr-highlight-500)
-  );
+  background: var(--highlight-gradient);
 }
 
 h1,
 h2,
 h3,
-button {
+button,
+.font-highlight {
   font-family: "Press Start 2P", cursive;
 }
 
@@ -39,9 +50,8 @@ input,
 textarea,
 label,
 select,
-option,
-.btn {
-  font-family: "Roboto", sans-serif;
+option {
+  font-family: "VT323", monospace;
 }
 
 body > header {
@@ -57,7 +67,7 @@ body > header > h1 {
 
 main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 16px;
 
   padding: 1rem;
@@ -95,7 +105,7 @@ li.skill-exp-bar::after {
   top: 0;
   bottom: 0;
   left: 0;
-  background: var(--brand-grandient);
+  background: var(--highlight-gradient);
   z-index: -1;
   transform-origin: left;
   transform: scaleX(1);
