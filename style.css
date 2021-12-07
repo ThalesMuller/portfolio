@@ -50,7 +50,8 @@ input,
 textarea,
 label,
 select,
-option {
+option,
+span {
   font-family: "VT323", monospace;
 }
 
