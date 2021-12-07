@@ -99,7 +99,7 @@ span {
 
 main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(calc(40ch + 2rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 16px;
 
   padding: 1rem;
@@ -212,6 +212,12 @@ footer .footer-icons {
 .basic-list li {
   padding: 0.5rem 1rem;
   position: relative;
+}
+
+.basic-list li h4 a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: var(--clr-neutral-100);
 }
 .basic-list li span {
   position: absolute;
