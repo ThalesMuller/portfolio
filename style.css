@@ -8,11 +8,8 @@
   --clr-brand-primary-700: #3e1f47;
   --clr-brand-primary-500: #4d194d;
   --clr-highlight-500: #006466;
-  --brand-grandient: linear-gradient(
-    130deg,
-    var(--clr-brand-primary-500),
-    var(--clr-highlight-500)
-  );
+  --clr-highlight-900: #006466
+  --brand-grandient: linear-gradient(130deg, var(--clr-brand-primary-500), var(--clr-highlight-500));
 
   --highlight-gradient: linear-gradient(
     130deg,
@@ -101,11 +98,16 @@ span {
 .main-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 16px;
+  gap: 32px;
 
   padding: 1rem;
 }
 
+@media only screen and (max-width: 414) {
+  .main-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
 @media only screen and (min-width: 1440px) {
   .main-grid {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -125,7 +127,7 @@ section h3 {
   font-weight: bold;
   padding: 0.5rem 1rem;
   background: var(--highlight-gradient);
-  transform: translateX(-1.5rem);
+  transform: translateX(-1.7rem);
   transition: transform 125ms ease-in-out;
   text-align: right;
 }
@@ -149,7 +151,7 @@ li.skill-exp-bar {
   z-index: 1;
   border: 1px solid var(--clr-brand-primary-700);
   cursor: pointer;
-  font-size: 12px;
+  font-size: clamp(1rem, 2vw, 1.125rem);
 }
 li.skill-exp-bar::after,
 li.skill-exp-bar::before {
@@ -240,8 +242,6 @@ footer .footer-icons {
   max-width: 40ch;
 }
 
-#objectives {
-}
 #objectives p {
   font-size: clamp(1rem, 2vw, 1.125rem);
   padding: 0.5rem 1rem;
