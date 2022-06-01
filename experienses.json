@@ -1,0 +1,68 @@
+{
+  "experienses": {
+    "compass.OUL": {
+      "description": "",
+      "livelo": {
+        "description": "Atualmente alocado como front-end no time que trabalha no LivPontua, o Marketplace da Livelo, minha squad é responsável pelo portal do Seller, que é o vendedor do market place",
+        "keyTecnologies": ["React", "Typescript", "Styled Components", "Redux Toolkit"],
+        "moreDetails": ""
+      }
+    },
+    "tekann": {
+      "description": "",
+      "flowy": {
+        "description": "",
+        "keyTecnologies": ["React", "Styled Components", "Javascript", "C#", "Entity Framework", "SQL", "Azure DevOps"],
+        "moreDetails": ""
+      }
+    },
+    "connect": {
+      "description": "",
+      "Toyota": {
+        "description": "",
+        "keyTecnologies": ["React", "SASS", "Typescript", "Sharepoint Framework", "Sharepoint"],
+        "moreDetails": ""
+      },
+      "GS1": {
+        "description": "",
+        "keyTecnologies": ["Sharepoint", "C#"],
+        "moreDetails": ""
+      },
+      "TKE": {
+        "description": "",
+        "keyTecnologies": ["Sharepoint", "Typescript", "Angular"],
+        "moreDetails": ""
+      },
+      "Jacto": {
+        "description": "",
+        "keyTecnologies": ["React", "Typescript", "Sharepoint", "Sharepoint Framework", "PowerApps", "PowerAutomate"],
+        "moreDetails": ""
+      },
+      "Elopar": {
+        "description": "",
+        "keyTecnologies": ["Sharepoint", "Javascript", "PowerAutomate"],
+        "moreDetails": ""
+      },
+      "Universal Leaf Tabacos": {
+        "description": "",
+        "keyTecnologies": ["Sharepoint", "PowerAutomate", "PowerApps"],
+        "moreDetails": ""
+      },
+      "AGCO - Massey Fergusson & Valtra": {
+        "description": "",
+        "keyTecnologies": ["Sharepoint", "PowerAutomate", "PowerApps"],
+        "moreDetails": ""
+      },
+      "Estrutura interna da empresa para qualidade de código": {
+        "description": "",
+        "keyTecnologies": ["Azure DevOps", "Azure Pipelines", "SonarQube", "Jest"],
+        "moreDetails": ""
+      },
+      "Diversos outros clientes": {
+        "description": "",
+        "keyTecnologies": ["Sharepoint", "Javascript", "PowerAutomate"],
+        "moreDetails": ""
+      }
+    }
+  }
+}

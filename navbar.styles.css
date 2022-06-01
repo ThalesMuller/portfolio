@@ -1,0 +1,33 @@
+html,
+body.navbar-body {
+  width: 100%;
+  height: fit-content;
+}
+body.navbar-body {
+  background: transparent;
+  height: fit-content;
+  min-height: fit-content;
+  margin: 0;
+}
+
+.main-navbar {
+  width: 100%;
+}
+.main-navbar ul {
+  position: relative;
+  padding: 0.5rem 1rem;
+  margin-left: auto;
+  width: fit-content;
+
+  display: flex;
+  gap: 16px;
+}
+
+.main-navbar ul::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  bottom: -10px;
+  background-image: var(--highlight-gradient);
+}
