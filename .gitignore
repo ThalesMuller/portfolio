@@ -1,0 +1,12 @@
+/node_modules/
+/dist/
+/coverage/
+/.qa/
+/playwright-report/
+/test-results/
+/.netlify/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
