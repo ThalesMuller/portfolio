@@ -19,3 +19,7 @@ O PDFKit grava texto e anotações de link em A4, em uma coluna. O build publica
 O CSS usa tokens locais, Instrument Sans e IBM Plex Mono com fontes auto-hospedadas. A abertura verde escura enquadra uma composição geométrica de metal e vidro, gerada com ImageGen. A trajetória usa uma linha cronológica em fundo claro, seguida por competências agrupadas e links de contato. A arte é decorativa e o CSS a omite em telas estreitas.
 
 O HTML inclui metadados localizados e dados estruturados `Person`. A origem HTTPS configurada habilita URLs canônicas por idioma, alternativas `hreflang`, imagem social absoluta compartilhada e sitemap com as duas páginas. Deploy Previews recebem `noindex` e deixam de publicar sitemap. O repositório contém apenas os dados marcados para publicação, sem documentos pessoais originais.
+
+## Comparação visual
+
+O Playwright separa as referências em `tests/browser/__screenshots__/{platform}/`: `win32` para a execução local em Windows e `linux` para o CI em Ubuntu. As imagens devem vir de capturas reais no respectivo ambiente e passar por inspeção antes de serem aceitas. Diferenças de navegador e renderização podem alterar quebras de linha mesmo com as mesmas fontes auto-hospedadas. A tolerância permanece em 2%, e o CI executa comparações sem atualizar referências automaticamente.
