@@ -1,8 +1,16 @@
 import { ArrowUpRight } from 'lucide-react';
-import { formatDate, formatPeriod, labels } from '../content/presentation.ts';
+import { formatDate, formatPeriod } from '../content/presentation.ts';
 import type { Profile } from '../content/schema.ts';
+import { defaultLocale, type Locale } from '../i18n/locale.ts';
+import { messages } from '../i18n/messages.ts';
 
-export function Qualifications({ education, certifications, projects }: Profile) {
+export function Qualifications({
+  education,
+  certifications,
+  projects,
+  locale = defaultLocale,
+}: Profile & { locale?: Locale }) {
+  const labels = messages[locale];
   return (
     <>
       {!!education?.length && (
@@ -16,7 +24,7 @@ export function Qualifications({ education, certifications, projects }: Profile)
                 <li key={id}>
                   <h3>{title}</h3>
                   <p>{institution}</p>
-                  <p className="fact-date">{formatPeriod(period)}</p>
+                  <p className="fact-date">{formatPeriod(period, locale)}</p>
                   {description && <p>{description}</p>}
                 </li>
               ))}
@@ -35,7 +43,7 @@ export function Qualifications({ education, certifications, projects }: Profile)
                 <li key={id}>
                   <h3>{title}</h3>
                   <p>{issuer}</p>
-                  <p className="fact-date">{formatDate(issued)}</p>
+                  <p className="fact-date">{formatDate(issued, locale)}</p>
                 </li>
               ))}
             </ul>

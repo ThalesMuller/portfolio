@@ -76,3 +76,13 @@ A estrutura existente de empresa e cargos passou a concentrar as duas fases. O m
 A revisão independente aprovou o conteúdo, a proveniência, as duas páginas A4 e screenshots reais em 1440, 390 e 320 px. A entrada da Livelo preserva a fase anterior nos portais e apresenta QEO com uma descrição curta.
 
 O gate completo passou com 15 testes unitários/de integração e 13 testes de browser. A cobertura é de 100% de linhas e 96,36% de branches. Gitleaks verificou a árvore candidata sem achados.
+
+## Versão em inglês e download por idioma
+
+O pedido do titular acrescentou inglês ao portfólio e ao currículo, com seletor PT/EN no topo. O perfil canônico reúne os textos nos dois idiomas e mantém datas, organizações, tecnologias, fontes e links em campos compartilhados. Uma comparação independente confirmou que o perfil português resolvido é exatamente igual ao conteúdo anterior. O inglês preserva o histórico Portais → QEO, as datas da Compass, a conclusão de ADS em dezembro de 2024, a cerimônia em abril de 2025 e o trancamento de Engenharia de Computação.
+
+O build publica `/` e `/en/`, cada uma com conteúdo completo, metadados e download correspondentes. A detecção na entrada pela raiz considera a escolha salva e a lista de idiomas do navegador; português é o fallback. A seleção explícita prevalece e funciona com armazenamento bloqueado. Navegação, troca de idioma e downloads continuam disponíveis sem JavaScript. O módulo de preferência tem 0,87 kB comprimido neste build e preserva consulta e âncora ao trocar o idioma.
+
+As revisões independentes conferiram tradução, invariantes dos fatos, prioridade de idioma, PDFs e reflow. Os dois currículos têm duas páginas A4, texto selecionável e os três links de contato. Screenshots reais foram conferidos nos dois idiomas em 1440, 390 e 320 px, com fonte normal e ampliada para 32 px. As quatro baselines foram atualizadas após inspeção. A primeira execução de axe identificou divergência entre o texto visível PT/EN e o nome acessível dos links; os rótulos passaram a incluir as siglas visíveis e a revalidação retornou zero violações nos quatro cenários de idioma e largura.
+
+`npm run check` passou com TypeScript, ESLint, Prettier, 22 testes unitários/de integração, build e 31 testes de browser. A cobertura unitária é de 86,51% de linhas e 86,58% de branches; o módulo que acessa navegador e armazenamento é exercitado na suíte de browser. O emulador oficial da Netlify confirmou HTML 200, erros 404 localizados e ambos os PDFs 200 com os cabeçalhos de download esperados. Gitleaks verificou a árvore candidata sem achados. As evidências desta atualização ficam em `.qa/bilingual/`.

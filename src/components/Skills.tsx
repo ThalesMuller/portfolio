@@ -1,6 +1,7 @@
 import { Braces, Database, GitBranch, Layers3 } from 'lucide-react';
-import { labels } from '../content/presentation.ts';
 import type { Profile } from '../content/schema.ts';
+import { defaultLocale, type Locale } from '../i18n/locale.ts';
+import { messages } from '../i18n/messages.ts';
 
 const skillIcons = new Map([
   ['front-end', Braces],
@@ -8,7 +9,8 @@ const skillIcons = new Map([
   ['engineering', GitBranch],
 ]);
 
-export function Skills({ skills }: Pick<Profile, 'skills'>) {
+export function Skills({ skills, locale = defaultLocale }: Pick<Profile, 'skills'> & { locale?: Locale }) {
+  const labels = messages[locale];
   return (
     <section className="expertise section-pad" id="competencias" aria-labelledby="skills-title">
       <div className="shell">

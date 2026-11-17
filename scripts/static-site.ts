@@ -5,8 +5,9 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { Plugin } from 'vite';
 import { App, NotFound } from '../src/App.tsx';
-import { profile } from '../src/content/profile.ts';
-import { resumeFile, resumeUrl } from '../src/content/presentation.ts';
+import { profiles } from '../src/content/profile.ts';
+import { resumeFiles, resumeUrls } from '../src/content/presentation.ts';
+import { localeFromPath, supportedLocales } from '../src/i18n/locale.ts';
 import { createResume } from '../src/resume/create-resume.ts';
 import { buildRobots, buildSitemap, Metadata, type SiteSettings } from '../src/seo/metadata.tsx';
 
@@ -35,31 +36,40 @@ export function staticSite(settings: SiteSettings): Plugin {
     transformIndexHtml: {
       order: 'pre',
       handler(html, { path }) {
-        if (path === '/404.html') {
-          return html.replace('<!--page-->', () => renderToStaticMarkup(createElement(NotFound, profile)));
+        const locale = localeFromPath(path);
+        const profile = profiles[locale];
+        if (path.endsWith('/404.html')) {
+          return html.replace('<!--page-->', () =>
+            renderToStaticMarkup(createElement(NotFound, { ...profile, locale })),
+          );
         }
 
         return html
-          .replace('<!--metadata-->', () => renderToStaticMarkup(createElement(Metadata, { profile, settings })))
-          .replace('<!--page-->', () => renderToStaticMarkup(createElement(App, { profile })));
+          .replace('<!--metadata-->', () =>
+            renderToStaticMarkup(createElement(Metadata, { profile, settings, locale })),
+          )
+          .replace('<!--page-->', () => renderToStaticMarkup(createElement(App, { profile, locale })));
       },
     },
     configureServer(server) {
       server.middlewares.use(redirect);
-      server.middlewares.use(resumeUrl, (_request, response, next) => {
-        createResume(profile).then((pdf) => {
-          response.writeHead(200, { 'Content-Type': 'application/pdf' }).end(pdf);
-        }, next);
-      });
+      for (const locale of supportedLocales) {
+        server.middlewares.use(resumeUrls[locale], (_request, response, next) => {
+          createResume(profiles[locale], locale).then((pdf) => {
+            response.writeHead(200, { 'Content-Type': 'application/pdf' }).end(pdf);
+          }, next);
+        });
+      }
     },
     configurePreviewServer(server) {
       server.middlewares.use(redirect);
       return () => {
         server.middlewares.use((request, response, next) => {
           if (!request.headers.accept?.includes('text/html')) return next();
-          const path = request.url?.split('?')[0];
-          if (path === '/index.html' || path === '/404.html') return next();
-          readFile(resolve(output, '404.html')).then((html) => {
+          const path = request.url?.split('?')[0] ?? '/';
+          if (['/index.html', '/404.html', '/en/index.html', '/en/404.html'].includes(path)) return next();
+          const errorPage = localeFromPath(path) === 'en' ? 'en/404.html' : '404.html';
+          readFile(resolve(output, errorPage)).then((html) => {
             response
               .writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' })
               .end(request.method === 'HEAD' ? undefined : html);
@@ -68,12 +78,13 @@ export function staticSite(settings: SiteSettings): Plugin {
       };
     },
     async writeBundle() {
-      const pdf = await createResume(profile);
       const sitemap = buildSitemap(settings);
       const rules = Array.from(redirects, ([from, to]) => `${from} ${to} 301`).join('\n');
       await Promise.all([
-        writeFile(resolve(output, resumeFile), pdf),
-        writeFile(resolve(output, '_redirects'), `${rules}\n`),
+        ...supportedLocales.map(async (locale) =>
+          writeFile(resolve(output, resumeFiles[locale]), await createResume(profiles[locale], locale)),
+        ),
+        writeFile(resolve(output, '_redirects'), `${rules}\n/en/* /en/404.html 404\n`),
         writeFile(resolve(output, 'robots.txt'), buildRobots(settings)),
         ...(sitemap ? [writeFile(resolve(output, 'sitemap.xml'), sitemap)] : []),
       ]);

@@ -1,5 +1,6 @@
-import { locale } from '../content/presentation.ts';
 import type { Profile } from '../content/schema.ts';
+import { defaultLocale, localePaths, supportedLocales, type Locale } from '../i18n/locale.ts';
+import { messages } from '../i18n/messages.ts';
 
 export type SiteSettings = { origin?: string; noindex: boolean };
 
@@ -24,15 +25,24 @@ export function buildSitemap({ origin, noindex }: SiteSettings): string | undefi
   if (!origin || noindex) return undefined;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>${origin}/</loc></url>
+${supportedLocales.map((locale) => `  <url><loc>${origin}${localePaths[locale]}</loc></url>`).join('\n')}
 </urlset>
 `;
 }
 
-export function Metadata({ profile, settings }: { profile: Profile; settings: SiteSettings }) {
+export function Metadata({
+  profile,
+  settings,
+  locale = defaultLocale,
+}: {
+  profile: Profile;
+  settings: SiteSettings;
+  locale?: Locale;
+}) {
   const title = `${profile.displayName} | ${profile.currentPosition.title}`;
   const description = `${profile.displayName}, ${profile.currentPosition.title}. ${profile.summary}`;
-  const url = settings.origin && `${settings.origin}/`;
+  const url = settings.origin && `${settings.origin}${localePaths[locale]}`;
+  const openGraphLocales = { 'pt-BR': 'pt_BR', en: 'en_US' };
   const person = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -49,16 +59,30 @@ export function Metadata({ profile, settings }: { profile: Profile; settings: Si
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="profile" />
-      <meta property="og:locale" content={locale.replace('-', '_')} />
+      <meta property="og:locale" content={openGraphLocales[locale]} />
+      {supportedLocales
+        .filter((other) => other !== locale)
+        .map((other) => (
+          <meta key={other} property="og:locale:alternate" content={openGraphLocales[other]} />
+        ))}
       {settings.noindex && <meta name="robots" content="noindex, follow" />}
       {url && (
         <>
           <link rel="canonical" href={url} />
+          {supportedLocales.map((language) => (
+            <link
+              key={language}
+              rel="alternate"
+              hrefLang={language}
+              href={`${settings.origin}${localePaths[language]}`}
+            />
+          ))}
+          <link rel="alternate" hrefLang="x-default" href={`${settings.origin}/`} />
           <meta property="og:url" content={url} />
-          <meta property="og:image" content={`${url}art/social.jpg`} />
+          <meta property="og:image" content={`${settings.origin}/art/social.jpg`} />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
-          <meta property="og:image:alt" content="Composição geométrica em metal e vidro verde." />
+          <meta property="og:image:alt" content={messages[locale].socialImageAlt} />
         </>
       )}
       <script

@@ -1,8 +1,11 @@
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
-import { contactText, labels } from '../content/presentation.ts';
+import { contactText } from '../content/presentation.ts';
 import type { Profile } from '../content/schema.ts';
+import { defaultLocale, type Locale } from '../i18n/locale.ts';
+import { messages } from '../i18n/messages.ts';
 
-export function Contact({ links }: Pick<Profile, 'links'>) {
+export function Contact({ links, locale = defaultLocale }: Pick<Profile, 'links'> & { locale?: Locale }) {
+  const labels = messages[locale];
   return (
     <section className="contact section-pad" id="contato" aria-labelledby="contact-title">
       <div className="shell section-split">
@@ -25,13 +28,13 @@ export function Contact({ links }: Pick<Profile, 'links'>) {
   );
 }
 
-export function Footer({ displayName }: Pick<Profile, 'displayName'>) {
+export function Footer({ displayName, locale = defaultLocale }: Pick<Profile, 'displayName'> & { locale?: Locale }) {
   return (
     <footer className="site-footer">
       <div className="shell footer-inner">
         <span>{displayName}</span>
         <a href="#inicio">
-          Voltar ao topo <ArrowUp size={16} aria-hidden="true" />
+          {messages[locale].backTop} <ArrowUp size={16} aria-hidden="true" />
         </a>
       </div>
     </footer>

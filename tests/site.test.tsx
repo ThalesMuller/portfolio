@@ -18,7 +18,7 @@ describe('portfolio rendering', () => {
     expect(html).toContain('nov. de 2024 a mar. de 2026');
     expect(html).toContain(`href="${resumeUrl}" download=""`);
     for (const { href } of profile.links) expect(html).toContain(`href="${href}"`);
-    expect(renderToStaticMarkup(<NotFound displayName={profile.displayName} />)).toContain('href="/"');
+    expect(renderToStaticMarkup(<NotFound displayName={profile.displayName} />)).toContain('href="/?lang=pt-BR"');
   });
 
   it('handles omitted optional sections and displays new information without changing components', () => {

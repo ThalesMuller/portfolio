@@ -1,6 +1,8 @@
 # Manutenção do perfil
 
-Edite [profile.ts](../src/content/profile.ts). O site e o currículo são gerados desses dados, e a validação falha no build quando o perfil é inválido.
+Edite [profile.ts](../src/content/profile.ts). O site e os currículos em português e inglês são gerados desses dados, e a validação falha no build quando algum perfil é inválido.
+
+Mantenha as versões `pt-BR` e `en` de cada texto editorial no mesmo campo. Datas, organizações, tecnologias, fontes e destinos de links são compartilhados. O inglês traduz os fatos confirmados, sem acrescentar nível acadêmico, fluência ou responsabilidades. `localized.ts` resolve os textos e valida cada idioma com o mesmo schema. Os rótulos da interface ficam em `src/i18n/messages.ts`.
 
 | Pedido                                      | Campo                                                                                   |
 | ------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -13,7 +15,9 @@ Edite [profile.ts](../src/content/profile.ts). O site e o currículo são gerado
 
 Use `AAAA-MM` quando o mês estiver documentado e `AAAA` para o ano isolado. `currentPosition.title` define o título profissional do cabeçalho. A trajetória fica em `experience`, agrupada por empresa e com cargos da fase mais recente para a mais antiga. `period.current: true` identifica uma atuação atual e mantém o fim em aberto. Um período histórico sem fim exibe apenas o início conhecido. Dê a cada registro um ID estável.
 
-Rode `npm run build` para atualizar o site e o currículo. Rode `npm run resume` para gerar só o PDF. Confira a versão renderizada e a extração de texto depois de uma alteração relevante. Para delegar a atualização, peça ao Codex para usar `$portfolio-maintainer` e inclua a fonte ou confirmação que sustenta o pedido.
+Rode `npm run build` para atualizar as duas páginas e os dois currículos. Rode `npm run resume` para gerar só os PDFs: `thales-muller-curriculo.pdf` e `thales-muller-resume.pdf`. Confira a renderização e a extração de texto em ambos os idiomas depois de uma alteração relevante. Para delegar a atualização, peça ao Codex para usar `$portfolio-maintainer` e inclua a fonte ou confirmação que sustenta o pedido.
+
+O português fica em `/` e o inglês em `/en/`. O seletor no topo funciona por links nativos. Com JavaScript disponível, a entrada pela raiz considera a escolha manual salva e, depois, o primeiro idioma suportado na lista do navegador; sem correspondência, usa português. A escolha manual usa `?lang=pt-BR` ou `?lang=en`, inclusive quando o armazenamento está bloqueado. A URL explícita `/en/` abre inglês. A troca preserva consulta e seção quando JavaScript está disponível.
 
 ## Importar uma nova fonte
 

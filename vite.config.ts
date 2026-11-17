@@ -5,5 +5,5 @@ import { readSiteSettings } from './src/seo/metadata.tsx';
 export default defineConfig(({ mode }) => ({
   appType: 'mpa',
   plugins: [staticSite(readSiteSettings({ ...loadEnv(mode, process.cwd(), ''), ...process.env }))],
-  build: { rollupOptions: { input: ['index.html', '404.html'] } },
+  build: { rollupOptions: { input: ['index.html', '404.html', 'en/index.html', 'en/404.html'] } },
 }));

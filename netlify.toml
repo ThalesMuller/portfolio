@@ -19,3 +19,10 @@
   [headers.values]
     Content-Type = "application/pdf"
     Content-Disposition = "attachment; filename=thales-muller-curriculo.pdf"
+
+[[headers]]
+  for = "/thales-muller-resume.pdf"
+
+  [headers.values]
+    Content-Type = "application/pdf"
+    Content-Disposition = "attachment; filename=thales-muller-resume.pdf"

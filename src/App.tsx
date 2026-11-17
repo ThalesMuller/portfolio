@@ -5,32 +5,34 @@ import { Hero } from './components/Hero.tsx';
 import { Qualifications } from './components/Qualifications.tsx';
 import { Skills } from './components/Skills.tsx';
 import type { Profile } from './content/schema.ts';
+import { defaultLocale, languageLink, type Locale } from './i18n/locale.ts';
+import { messages } from './i18n/messages.ts';
 
-export function App({ profile }: { profile: Profile }) {
+export function App({ profile, locale = defaultLocale }: { profile: Profile; locale?: Locale }) {
   return (
     <>
       <a className="skip-link" href="#conteudo">
-        Ir para o conteúdo
+        {messages[locale].skip}
       </a>
-      <Header displayName={profile.displayName} />
+      <Header displayName={profile.displayName} locale={locale} />
       <main id="conteudo" tabIndex={-1}>
-        <Hero name={profile.name} currentPosition={profile.currentPosition} summary={profile.summary} />
-        <Experience profile={profile} />
-        <Skills skills={profile.skills} />
-        <Qualifications {...profile} />
-        <Contact links={profile.links} />
+        <Hero name={profile.name} currentPosition={profile.currentPosition} summary={profile.summary} locale={locale} />
+        <Experience profile={profile} locale={locale} />
+        <Skills skills={profile.skills} locale={locale} />
+        <Qualifications {...profile} locale={locale} />
+        <Contact links={profile.links} locale={locale} />
       </main>
-      <Footer displayName={profile.displayName} />
+      <Footer displayName={profile.displayName} locale={locale} />
     </>
   );
 }
 
-export function NotFound({ displayName }: Pick<Profile, 'displayName'>) {
+export function NotFound({ displayName, locale = defaultLocale }: Pick<Profile, 'displayName'> & { locale?: Locale }) {
   return (
     <main className="not-found shell">
       <p>{displayName}</p>
-      <h1>Página não encontrada</h1>
-      <a href="/">Voltar ao portfólio</a>
+      <h1>{messages[locale].notFound}</h1>
+      <a href={languageLink(locale)}>{messages[locale].backHome}</a>
     </main>
   );
 }

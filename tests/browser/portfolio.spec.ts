@@ -19,7 +19,7 @@ test('serves a readable static homepage and working section and contact links', 
   await expect(page).toHaveTitle(`${profile.displayName} | ${profile.currentPosition.title}`);
   await expect(page.getByRole('heading', { level: 1, name: profile.name })).toBeVisible();
   await expect(page.getByText(profile.currentPosition.title, { exact: true }).first()).toBeVisible();
-  expect(await page.locator('script[src]').count()).toBe(0);
+  expect(await page.locator('script[type="module"][src]').count()).toBe(1);
   for (const group of profile.experience) {
     await expect(page.getByRole('heading', { name: group.organization })).toBeVisible();
   }
@@ -40,7 +40,7 @@ test('serves a readable static homepage and working section and contact links', 
     await expect(contact.getByRole('link', { name: new RegExp(link.label, 'i') })).toHaveAttribute('href', link.href);
   }
   await page.getByRole('link', { name: 'Voltar ao topo' }).click();
-  await expect(page.getByRole('navigation')).toBeInViewport();
+  await expect(nav).toBeInViewport();
   expect((await request.get('/mark.svg')).ok()).toBe(true);
   expect((await request.get('/art/structure.webp')).ok()).toBe(true);
   expect((await request.get('/art/social.jpg')).ok()).toBe(true);
@@ -116,7 +116,10 @@ for (const width of [320, 390, 768, 1024, 1440]) {
         contentType: 'image/png',
       });
     }
-    await page.getByRole('navigation').getByRole('link', { name: labels.contact }).click();
+    await page
+      .getByRole('navigation', { name: labels.mainNavigation })
+      .getByRole('link', { name: labels.contact })
+      .click();
     await expect(page.getByRole('heading', { name: labels.contact })).toBeInViewport();
   });
 }
@@ -134,7 +137,7 @@ for (const width of [390, 1440]) {
 }
 
 test.describe('automated accessibility', () => {
-  test.use({ javaScriptEnabled: true, reducedMotion: 'reduce' });
+  test.use({ javaScriptEnabled: true, reducedMotion: 'reduce', locale: 'pt-BR' });
 
   for (const width of [390, 1440]) {
     test(`passes axe WCAG checks at ${width}px`, async ({ page }) => {
@@ -156,6 +159,9 @@ test('reflows at 200% native text size on a narrow viewport', async ({ page, con
   await page.goto('/');
   expect(await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).fontSize))).toBe(32);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
-  await page.getByRole('navigation').getByRole('link', { name: labels.contact }).click();
+  await page
+    .getByRole('navigation', { name: labels.mainNavigation })
+    .getByRole('link', { name: labels.contact })
+    .click();
   await expect(page.getByRole('heading', { name: labels.contact })).toBeInViewport();
 });

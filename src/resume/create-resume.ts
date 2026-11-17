@@ -1,7 +1,9 @@
 import { readFileSync } from 'node:fs';
 import PDFDocument from 'pdfkit';
-import { contactText, formatDate, formatPeriod, labels, locale, selectExperience } from '../content/presentation.ts';
+import { contactText, formatDate, formatPeriod, selectExperience } from '../content/presentation.ts';
 import type { Profile } from '../content/schema.ts';
+import { defaultLocale, type Locale } from '../i18n/locale.ts';
+import { messages } from '../i18n/messages.ts';
 
 const ink = '#183029';
 const green = '#27543f';
@@ -28,8 +30,9 @@ type Line = {
 
 type Section = { title: string; blocks: Line[][] };
 
-function resumeSections(profile: Profile): Section[] {
-  const experience = selectExperience(profile).flatMap((group) => {
+function resumeSections(profile: Profile, locale: Locale): Section[] {
+  const labels = messages[locale];
+  const experience = selectExperience(profile, locale).flatMap((group) => {
     const roles = group.roles.map((role): Line[] => {
       const title = [role.title, group.organization].filter(Boolean).join(' | ');
       const lines: Line[] = [
@@ -69,7 +72,7 @@ function resumeSections(profile: Profile): Section[] {
       title: labels.education,
       blocks: profile.education.map(({ title, institution, period, description }) => [
         { style: 'heading', content: `${title} | ${institution}` },
-        { style: 'date', content: formatPeriod(period) },
+        { style: 'date', content: formatPeriod(period, locale) },
         ...(description ? [{ style: 'body' as const, content: description }] : []),
       ]),
     });
@@ -80,7 +83,7 @@ function resumeSections(profile: Profile): Section[] {
       title: labels.certifications,
       blocks: profile.certifications.map(({ title, issuer, issued }) => [
         { style: 'heading', content: `${title} | ${issuer}` },
-        { style: 'date', content: formatDate(issued) },
+        { style: 'date', content: formatDate(issued, locale) },
       ]),
     });
   }
@@ -98,7 +101,7 @@ function resumeSections(profile: Profile): Section[] {
   return sections;
 }
 
-function writeResume(doc: PDFKit.PDFDocument, profile: Profile) {
+function writeResume(doc: PDFKit.PDFDocument, profile: Profile, locale: Locale) {
   const options = { width: doc.page.width - 2 * margin, lineGap: 2 };
 
   function setStyle(line: Line) {
@@ -136,7 +139,7 @@ function writeResume(doc: PDFKit.PDFDocument, profile: Profile) {
   }
   doc.y += gap;
 
-  for (const { title, blocks } of resumeSections(profile)) {
+  for (const { title, blocks } of resumeSections(profile, locale)) {
     const heading: Line = { style: 'section', content: title };
     reserve(measure(heading) + leadHeight(blocks[0]));
     write(heading);
@@ -148,13 +151,13 @@ function writeResume(doc: PDFKit.PDFDocument, profile: Profile) {
   }
 }
 
-export function createResume(profile: Profile): Promise<Buffer> {
+export function createResume(profile: Profile, locale: Locale = defaultLocale): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({
       size: 'A4',
       margin,
       lang: locale,
-      info: { Title: `Currículo | ${profile.name}`, Author: profile.name },
+      info: { Title: `${messages[locale].resumeDocumentTitle} | ${profile.name}`, Author: profile.name },
     });
     const chunks: Buffer[] = [];
     doc.on('data', (chunk: Buffer) => chunks.push(chunk));
@@ -162,7 +165,7 @@ export function createResume(profile: Profile): Promise<Buffer> {
     doc.once('error', reject);
     doc.registerFont('Regular', regular);
     doc.registerFont('Bold', bold);
-    writeResume(doc, profile);
+    writeResume(doc, profile, locale);
     doc.end();
   });
 }

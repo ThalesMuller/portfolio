@@ -127,9 +127,12 @@ svg {
 }
 .header-inner {
   min-height: 4.75rem;
+  flex-wrap: wrap;
 }
 .brand {
   display: inline-flex;
+  flex-grow: 1;
+  min-width: min(100%, 10rem);
   align-items: center;
   gap: 0.75rem;
   min-height: 2.75rem;
@@ -177,6 +180,24 @@ svg {
 }
 .site-header nav .nav-contact:hover {
   border-color: var(--accent);
+}
+.site-header .language-switch {
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 1px solid #5c766c;
+  border-radius: 0.4rem;
+}
+.site-header .language-switch a {
+  justify-content: center;
+  min-width: 2.75rem;
+  padding-inline: 0.55rem;
+  border-radius: 0.32rem;
+  font-family: var(--mono-font);
+  font-size: 0.75rem;
+}
+.site-header .language-switch a[aria-current] {
+  color: var(--dark);
+  background: var(--accent);
 }
 
 .hero {
@@ -538,17 +559,21 @@ svg {
 
 @media (max-width: 34rem) {
   .header-inner {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 0.2rem;
+    align-items: center;
+    gap: 0.2rem 0.65rem;
     padding-block: 0.55rem;
   }
   .brand {
-    align-self: start;
+    order: 1;
   }
-  .site-header nav {
+  .site-header .primary-nav {
+    order: 3;
+    flex-basis: 100%;
     justify-content: space-between;
     gap: 0.5rem;
+  }
+  .site-header .language-switch {
+    order: 2;
   }
   .site-header nav .nav-contact {
     padding-inline: 0.65rem;
