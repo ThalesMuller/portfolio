@@ -12,6 +12,10 @@ describe('portfolio rendering', () => {
     expect(html).toContain(profile.currentPosition.title);
     expect(html).toContain(profile.summary);
     expect(html).toContain(profile.experience[0].roles[0].description);
+    expect(html).toContain('Tech Lead · QEO');
+    expect(html).toContain('Tech Lead · Portais');
+    expect(html).toContain('Desde mar. de 2026');
+    expect(html).toContain('nov. de 2024 a mar. de 2026');
     expect(html).toContain(`href="${resumeUrl}" download=""`);
     for (const { href } of profile.links) expect(html).toContain(`href="${href}"`);
     expect(renderToStaticMarkup(<NotFound displayName={profile.displayName} />)).toContain('href="/"');

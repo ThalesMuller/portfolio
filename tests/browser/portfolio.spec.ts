@@ -69,9 +69,12 @@ test('supports keyboard skip, focus and download on the published build', async 
   const text = pages.map((page) => page.text).join(' ');
   expect(text).toContain(profile.name);
   expect(text).toContain(profile.currentPosition.title);
-  expect(text).toContain(profile.currentPosition.organization);
-  expect(text).toContain(profile.currentPosition.description);
-  expect(text).toContain(profile.experience[0].roles[0].description);
+  const livelo = profile.experience.find(({ id }) => id === 'livelo')!;
+  expect(text).toContain(livelo.organization);
+  for (const role of livelo.roles) {
+    expect(text).toContain(role.title);
+    expect(text).toContain(role.description);
+  }
   expect(pages.flatMap(({ links }) => links)).toEqual(profile.links.map(({ href }) => href));
 });
 

@@ -10,6 +10,7 @@ describe('canonical profile', () => {
     expect(formatDate('2017')).toBe('2017');
     expect(formatPeriod({ start: '2017', end: '2019' })).toBe('2017 a 2019');
     expect(formatPeriod({ start: '2021-06' })).toBe('Início em jun. de 2021');
+    expect(formatPeriod({ start: '2026-03', current: true })).toBe('Desde mar. de 2026');
   });
 
   it('requires substantive sections and provenance', () => {
@@ -27,6 +28,10 @@ describe('canonical profile', () => {
     role.period = { start: '2021-06', end: '2021-05' };
     expect(profileSchema.safeParse(candidate).success).toBe(false);
     role.period.end = '2021';
+    expect(profileSchema.safeParse(candidate).success).toBe(true);
+    role.period = { start: '2026-03', end: '2026-04', current: true };
+    expect(profileSchema.safeParse(candidate).success).toBe(false);
+    delete role.period.end;
     expect(profileSchema.safeParse(candidate).success).toBe(true);
   });
 

@@ -3,29 +3,29 @@ import { profileSchema } from './schema.ts';
 export const profile = profileSchema.parse({
   name: 'Thales Eduardo Müller',
   displayName: 'Thales Müller',
-  summary:
-    'Lidero tecnicamente o time de campanhas do Shopping Livelo, com foco em performance e confiabilidade nas regras comerciais de carrinho e checkout.',
-  currentPosition: {
-    title: 'Tech Lead',
-    organization: 'Livelo Brasil',
-    start: '2024-11',
-    description:
-      'Atualmente, atuo nos sistemas de cadastro de campanhas e nas regras de custo por ponto (CPP), paridade de acúmulo e comissionamento. O time responde pelos cálculos de carrinho e checkout e pelo pré-processamento diário do catálogo, com foco em baixa latência.',
-    technologies: [
-      'Java',
-      'Spring',
-      'React',
-      'single-spa',
-      'NestJS',
-      'Oracle',
-      'RabbitMQ',
-      'Amazon SQS',
-      'Amazon SNS',
-      'Redis',
-    ],
-    source: 'owner',
-  },
+  summary: 'Tech Lead na Livelo, com foco em arquitetura, qualidade de software e evolução de produtos digitais.',
+  currentPosition: { title: 'Tech Lead', source: 'owner' },
   experience: [
+    {
+      id: 'livelo',
+      organization: 'Livelo Brasil',
+      roles: [
+        {
+          title: 'Tech Lead · QEO',
+          period: { start: '2026-03', current: true },
+          description:
+            'Liderança técnica do time de campanhas do Shopping Livelo, com foco em performance e evolução dos sistemas comerciais.',
+        },
+        {
+          title: 'Tech Lead · Portais',
+          period: { start: '2024-11', end: '2026-03' },
+          description:
+            'Liderança técnica dos portais Operador e Seller, com micro frontends React, BFFs NestJS e serviços Java. Padronização arquitetural, documentação e qualidade de código.',
+        },
+      ],
+      technologies: ['React', 'NestJS', 'Java', 'Oracle'],
+      sources: ['owner', 'user-resume'],
+    },
     {
       id: 'compass-uol',
       organization: 'Compass UOL',

@@ -26,7 +26,8 @@ export function formatDate(date: string): string {
   return date.length === 4 ? date : monthYear.format(new Date(`${date}-01T00:00:00Z`));
 }
 
-export function formatPeriod({ start, end }: { start: string; end?: string }): string {
+export function formatPeriod({ start, end, current }: { start: string; end?: string; current?: boolean }): string {
+  if (current) return `Desde ${formatDate(start)}`;
   return end ? `${formatDate(start)} a ${formatDate(end)}` : `Início em ${formatDate(start)}`;
 }
 

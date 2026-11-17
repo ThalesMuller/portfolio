@@ -2,16 +2,16 @@
 
 Edite [profile.ts](../src/content/profile.ts). O site e o currículo são gerados desses dados, e a validação falha no build quando o perfil é inválido.
 
-| Pedido                                      | Campo                                                                                    |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Atualizar resumo ou título                  | `summary` ou `currentPosition.title`                                                     |
-| Descrever o cargo atual                     | `currentPosition` recebe organização, início, descrição e tecnologias conforme as fontes |
-| Adicionar experiência                       | `experience`, da mais recente para a mais antiga, com um ou mais cargos por organização  |
-| Atualizar competências                      | `skills` e, quando necessário, as referências de tecnologias nas experiências            |
-| Adicionar certificação, projeto ou formação | `certifications`, `projects` ou `education`                                              |
-| Adicionar contato                           | `links`, com HTTPS ou `mailto:`                                                          |
+| Pedido                                      | Campo                                                                                   |
+| ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Atualizar resumo ou título                  | `summary` ou `currentPosition.title`                                                    |
+| Descrever o cargo atual                     | `experience`, no cargo com `period.current: true` dentro do vínculo com a empresa       |
+| Adicionar experiência                       | `experience`, da mais recente para a mais antiga, com um ou mais cargos por organização |
+| Atualizar competências                      | `skills` e, quando necessário, as referências de tecnologias nas experiências           |
+| Adicionar certificação, projeto ou formação | `certifications`, `projects` ou `education`                                             |
+| Adicionar contato                           | `links`, com HTTPS ou `mailto:`                                                         |
 
-Use `AAAA-MM` quando o mês estiver documentado e `AAAA` para o ano isolado. Um cargo histórico sem fim aparece com o início conhecido. O cargo atual aparece no cabeçalho e ganha uma entrada na trajetória quando recebe informações adicionais. Dê a cada registro um ID estável.
+Use `AAAA-MM` quando o mês estiver documentado e `AAAA` para o ano isolado. `currentPosition.title` define o título profissional do cabeçalho. A trajetória fica em `experience`, agrupada por empresa e com cargos da fase mais recente para a mais antiga. `period.current: true` identifica uma atuação atual e mantém o fim em aberto. Um período histórico sem fim exibe apenas o início conhecido. Dê a cada registro um ID estável.
 
 Rode `npm run build` para atualizar o site e o currículo. Rode `npm run resume` para gerar só o PDF. Confira a versão renderizada e a extração de texto depois de uma alteração relevante. Para delegar a atualização, peça ao Codex para usar `$portfolio-maintainer` e inclua a fonte ou confirmação que sustenta o pedido.
 
@@ -23,13 +23,13 @@ Anexe o PDF exportado do LinkedIn ou o currículo que deseja usar a uma sessão 
 
 ## Proveniência
 
-| Fonte                | Evidência                                                                                                     | Escopo                                                                                                                                                                                                                    |
-| -------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `owner`              | Brief e correções diretas do titular em 17/11/2026                                                            | Formação, conclusão e formatura, atuação atual em campanhas, stack, mensageria, cache e experiência profissional/pessoal com IA.                                                                                          |
-| `portfolio-2022`     | Commit `f2c31f3`, `src/components/pages/Home/index.tsx`, `src/components/molecules/{Header,Footer}/index.tsx` | Nome completo, e-mail publicado anteriormente, cargos, datas históricas, formação, bolsa e tecnologias declaradas.                                                                                                        |
-| `project-notes-2022` | Commit `f2c31f3`, `experienses.json`                                                                          | Portal de vendedores no contexto Compass UOL/Livelo, tecnologias da Tekann, SharePoint, Power Platform e ferramentas de qualidade na Conectt.                                                                             |
-| `github-profile`     | Perfil e metadados do repositório públicos, consultados em 17/11/2026                                         | Nome de exibição, URL do GitHub e URL existente da Netlify.                                                                                                                                                               |
-| `user-resume`        | Exportação LinkedIn `Profile.pdf`, fornecida pelo titular em 17/11/2026, três páginas                         | Página 1 registra Livelo Brasil desde novembro de 2024, liderança dos portais Operador e Seller, stack atual e inglês. Páginas 1–2 registram os dois cargos na Compass. Páginas 2–3 registram Tekann, Conectt e formação. |
+| Fonte                | Evidência                                                                                                     | Escopo                                                                                                                                                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `owner`              | Brief e correções diretas do titular em 17/11/2026                                                            | Formação, conclusão e formatura, atuação atual em campanhas, stack, mensageria, cache e experiência profissional/pessoal com IA.                                                                                                |
+| `portfolio-2022`     | Commit `f2c31f3`, `src/components/pages/Home/index.tsx`, `src/components/molecules/{Header,Footer}/index.tsx` | Nome completo, e-mail publicado anteriormente, cargos, datas históricas, formação, bolsa e tecnologias declaradas.                                                                                                              |
+| `project-notes-2022` | Commit `f2c31f3`, `experienses.json`                                                                          | Portal de vendedores no contexto Compass UOL/Livelo, tecnologias da Tekann, SharePoint, Power Platform e ferramentas de qualidade na Conectt.                                                                                   |
+| `github-profile`     | Perfil e metadados do repositório públicos, consultados em 17/11/2026                                         | Nome de exibição, URL do GitHub e URL existente da Netlify.                                                                                                                                                                     |
+| `user-resume`        | Exportação LinkedIn `Profile.pdf`, fornecida pelo titular em 17/11/2026, três páginas                         | Página 1 registra Livelo Brasil desde novembro de 2024, liderança dos portais Operador e Seller, stack dos portais e inglês. Páginas 1–2 registram os dois cargos na Compass. Páginas 2–3 registram Tekann, Conectt e formação. |
 
 A consulta pública ao LinkedIn em 17/11/2026 retornou HTTP 999. A exportação fornecida permitiu importar o histórico profissional e o início do cargo Tech Lead na Livelo em novembro de 2024. Depois, as confirmações diretas do titular atualizaram o escopo atual e corrigiram a formação, conforme registrado abaixo.
 
@@ -41,7 +41,7 @@ Redux Toolkit, SQL, Git, Azure Pipelines, SonarQube e Jest continuam apoiados na
 
 O titular confirmou Engenharia de Computação na UNISC entre 2017 e 2023, com trancamento em 2023. Em 2024, transferiu-se para Análise e Desenvolvimento de Sistemas após aproveitamento de estudos e concluiu o curso em dezembro de 2024. Confirmou a formatura em abril de 2025. Esses dados substituem o período agregado de 2017 a 2024 da exportação.
 
-A atuação atual é a liderança técnica do time de campanhas do Shopping Livelo, responsável por cadastros de campanhas e regras de CPP, paridade e comissão, com cálculos críticos para carrinho e checkout e pré-processamento diário de catálogo. Novembro de 2024 continua como início do cargo na Livelo. A mudança para campanhas ocorreu por volta de março, com o ano em confirmação. O texto público usa “Atualmente” para descrever o escopo recente.
+O titular confirmou a mudança para QEO em março de 2026. O vínculo interno com a Livelo aparece em uma única entrada, com Portais Operador e Seller de novembro de 2024 a março de 2026 e QEO de março de 2026 em diante. Novembro de 2024 permanece como início da internalização. O resumo e a descrição de QEO foram sintetizados após o titular pedir menos detalhe operacional.
 
 A stack confirmada inclui Java, Spring, React com single-spa, BFFs NestJS, Oracle, RabbitMQ, SQS/SNS e Redis. As competências exibem Java e Spring como famílias de tecnologia. MongoDB e CQRS continuam apoiados no histórico da exportação.
 

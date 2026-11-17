@@ -28,9 +28,14 @@ describe('résumé integration', () => {
     expect(positions.every((index) => index >= 0)).toBe(true);
     expect(positions).toEqual([...positions].sort((left, right) => left - right));
     expect(text).toContain(profile.education![0].title);
-    expect(text).toContain(profile.currentPosition.organization);
-    expect(text).toContain(profile.currentPosition.description);
-    expect(text).toContain(profile.experience[0].roles[0].description);
+    const livelo = profile.experience.find(({ id }) => id === 'livelo')!;
+    expect(text).toContain(livelo.organization);
+    for (const role of livelo.roles) {
+      expect(text).toContain(role.title);
+      expect(text).toContain(role.description);
+    }
+    expect(text).toContain('Desde mar. de 2026');
+    expect(text).toContain('nov. de 2024 a mar. de 2026');
     expect(pages.flatMap(({ links }) => links)).toEqual(profile.links.map(({ href }) => href));
   });
 

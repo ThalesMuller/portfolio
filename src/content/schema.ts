@@ -6,9 +6,13 @@ const date = z.string().regex(/^[12]\d{3}(?:-(?:0[1-9]|1[0-2]))?$/);
 const source = z.enum(['owner', 'linkedin', 'user-resume', 'portfolio-2022', 'project-notes-2022', 'github-profile']);
 
 const period = z
-  .strictObject({ start: date, end: date.optional() })
+  .strictObject({ start: date, end: date.optional(), current: z.boolean().optional() })
   .refine(({ start, end }) => !end || end.padEnd(7, '-12') >= start.padEnd(7, '-01'), {
     message: 'O fim do período deve ser posterior ou igual ao início.',
+    path: ['end'],
+  })
+  .refine(({ current, end }) => !current || !end, {
+    message: 'Um período atual deve permanecer em aberto.',
     path: ['end'],
   });
 

@@ -66,3 +66,13 @@ As competências incluem a stack atual, mensageria/cache e uma descrição curta
 Dois revisores independentes conferiram fatos, concisão, proveniência, screenshots desktop/mobile, reflow com fonte de 32 px e as duas páginas A4. Axe retornou zero violações em desktop e celular. O único achado documental foi corrigido e revalidado. As evidências desta rodada estão em `.qa/campaign-update/`.
 
 O gate completo passou com 15 testes unitários/de integração e 13 testes de browser. A cobertura da lógica de aplicação ficou em 100% de linhas e 94,33% de branches. Gitleaks verificou a árvore candidata sem achados.
+
+## Restauração da trajetória interna na Livelo
+
+O titular confirmou março de 2026 como início em QEO e apontou a perda da fase anterior nos portais após a internalização. A trajetória foi corrigida para uma única entrada da Livelo, com Portais Operador e Seller de novembro de 2024 a março de 2026 e QEO desde março de 2026. A descrição de QEO passou a uma frase, e o resumo do perfil enfatiza liderança técnica e arquitetura.
+
+A estrutura existente de empresa e cargos passou a concentrar as duas fases. O marcador opcional `period.current` permite indicar a atuação atual, enquanto os períodos históricos preservam suas datas. Os formatos anteriores de perfil continuam cobertos pelos testes. As verificações de HTML e PDF agora incluem as duas fases e a transição de março de 2026. As evidências desta correção ficam em `.qa/livelo-history/`.
+
+A revisão independente aprovou o conteúdo, a proveniência, as duas páginas A4 e screenshots reais em 1440, 390 e 320 px. A entrada da Livelo preserva a fase anterior nos portais e apresenta QEO com uma descrição curta.
+
+O gate completo passou com 15 testes unitários/de integração e 13 testes de browser. A cobertura é de 100% de linhas e 96,36% de branches. Gitleaks verificou a árvore candidata sem achados.
