@@ -36,6 +36,7 @@
 body {
   margin: 0;
   font: 1rem/1.55 var(--body-font);
+  overflow-wrap: anywhere;
   color: var(--ink);
   background: var(--paper);
 }
@@ -387,7 +388,7 @@ svg {
 }
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   border: 1px solid var(--line);
   background: var(--line);

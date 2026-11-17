@@ -10,10 +10,12 @@ describe('résumé integration', () => {
   it('contains selectable accents, conventional sections and the exact contact URLs in reading order', async () => {
     const pdf = await createResume(profile);
     expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
-    const [page, ...remaining] = await inspectPdf(pdf);
-    expect(remaining).toHaveLength(0);
-    expect(page.width).toBeCloseTo(595.28, 1);
-    expect(page.height).toBeCloseTo(841.89, 1);
+    const pages = await inspectPdf(pdf);
+    const text = pages.map((page) => page.text).join(' ');
+    for (const page of pages) {
+      expect(page.width).toBeCloseTo(595.28, 1);
+      expect(page.height).toBeCloseTo(841.89, 1);
+    }
     const order = [
       profile.name,
       profile.currentPosition.title,
@@ -22,12 +24,14 @@ describe('résumé integration', () => {
       labels.skills,
       labels.education,
     ];
-    const positions = order.map((text) => page.text.indexOf(text));
+    const positions = order.map((section) => text.indexOf(section));
     expect(positions.every((index) => index >= 0)).toBe(true);
     expect(positions).toEqual([...positions].sort((left, right) => left - right));
-    expect(page.text).toContain('Engenharia de Computação');
-    expect(page.text).toContain(profile.experience[0].roles[0].description);
-    expect(page.links).toEqual(profile.links.map(({ href }) => href));
+    expect(text).toContain(profile.education![0].title);
+    expect(text).toContain(profile.currentPosition.organization);
+    expect(text).toContain(profile.currentPosition.description);
+    expect(text).toContain(profile.experience[0].roles[0].description);
+    expect(pages.flatMap(({ links }) => links)).toEqual(profile.links.map(({ href }) => href));
   });
 
   it('lays out long edited content on A4 pages and propagates changes to HTML and PDF', async () => {

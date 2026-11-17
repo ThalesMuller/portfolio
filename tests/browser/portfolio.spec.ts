@@ -65,11 +65,14 @@ test('supports keyboard skip, focus and download on the published build', async 
   expect(await download.failure()).toBeNull();
   const bytes = await readFile(await download.path());
   expect(bytes.subarray(0, 5).toString()).toBe('%PDF-');
-  const [pdf] = await inspectPdf(bytes);
-  expect(pdf.text).toContain(profile.name);
-  expect(pdf.text).toContain(profile.currentPosition.title);
-  expect(pdf.text).toContain(profile.experience[0].roles[0].description);
-  expect(pdf.links).toEqual(profile.links.map(({ href }) => href));
+  const pages = await inspectPdf(bytes);
+  const text = pages.map((page) => page.text).join(' ');
+  expect(text).toContain(profile.name);
+  expect(text).toContain(profile.currentPosition.title);
+  expect(text).toContain(profile.currentPosition.organization);
+  expect(text).toContain(profile.currentPosition.description);
+  expect(text).toContain(profile.experience[0].roles[0].description);
+  expect(pages.flatMap(({ links }) => links)).toEqual(profile.links.map(({ href }) => href));
 });
 
 test('preserves legacy routes and uses an actual 404 for unknown pages', async ({ page, request }) => {

@@ -51,8 +51,10 @@ describe('canonical profile', () => {
   });
 
   it('does not present a title-only current position as a historical job', () => {
-    expect(selectExperience(profile).map(({ id }) => id)).toEqual(profile.experience.map(({ id }) => id));
-    const current = { ...profile.currentPosition, description: 'Descrição confirmada' };
+    const titleOnly = { title: profile.currentPosition.title, source: 'owner' as const };
+    const minimal = { ...profile, currentPosition: titleOnly };
+    expect(selectExperience(minimal).map(({ id }) => id)).toEqual(profile.experience.map(({ id }) => id));
+    const current = { ...titleOnly, description: 'Descrição confirmada' };
     const candidate = { ...profile, currentPosition: current };
     expect(selectExperience(candidate)[0].roles[0]).toEqual({
       title: current.title,
