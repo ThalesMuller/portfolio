@@ -24,6 +24,7 @@ describe('bilingual content', () => {
         periods: roles.map(({ period }) => period),
       })),
       education: profile.education?.map(({ id, institution, period, source }) => ({ id, institution, period, source })),
+      languages: profile.languages?.map(({ id, proficiency, source }) => ({ id, proficiency, source })),
       links: profile.links.map(({ id, href, source, identity }) => ({ id, href, source, identity })),
     });
     expect(facts(profiles.en)).toEqual(facts(profiles['pt-BR']));
@@ -126,6 +127,40 @@ describe('bilingual content', () => {
     expect(html).toContain('https://portfolio.example/art/social.jpg');
     expect(html).not.toContain('/en/art/');
     expect(buildSitemap(settings)).toContain('<loc>https://portfolio.example/en/</loc>');
+  });
+
+  it('shares the confirmed language levels between HTML and both resumes', async () => {
+    for (const locale of supportedLocales) {
+      const profile = profiles[locale];
+      const labels = messages[locale];
+      const html = renderToStaticMarkup(<App profile={profile} locale={locale} />);
+      const text = (await inspectPdf(await createResume(profile, locale))).map(({ text }) => text).join(' ');
+      expect(profile.languages?.map(({ proficiency }) => proficiency)).toEqual(['native', 'advanced']);
+      expect(html).toContain(`id="languages-title">${labels.languages}</h2>`);
+      expect(text).toContain(labels.languages);
+      for (const { name, proficiency } of profile.languages!) {
+        expect(html).toContain(name);
+        expect(html).toContain(labels[proficiency]);
+        expect(text).toContain(`${name} · ${labels[proficiency]}`);
+      }
+      expect(html).not.toContain('Full professional proficiency');
+      expect(text).not.toContain('competência profissional completa');
+    }
+  });
+
+  it('rejects duplicate or unsupported language levels and omits an absent section', async () => {
+    const profile = structuredClone(profiles['pt-BR']);
+    expect(
+      profileSchema.safeParse({ ...profile, languages: [profile.languages![0], profile.languages![0]] }).success,
+    ).toBe(false);
+    expect(
+      profileSchema.safeParse({ ...profile, languages: [{ ...profile.languages![0], proficiency: 'fluent' }] }).success,
+    ).toBe(false);
+    delete profile.languages;
+    expect(profileSchema.safeParse(profile).success).toBe(true);
+    expect(renderToStaticMarkup(<App profile={profile} />)).not.toContain('id="languages-title"');
+    const text = (await inspectPdf(await createResume(profile))).map(({ text }) => text).join(' ');
+    expect(text).not.toContain(messages['pt-BR'].languages);
   });
 });
 

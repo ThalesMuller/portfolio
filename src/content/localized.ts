@@ -25,6 +25,8 @@ type EducationContent = Omit<Education, 'title' | 'description'> & {
 };
 type Certification = NonNullable<Profile['certifications']>[number];
 type CertificationContent = Omit<Certification, 'title'> & { title: LocalizedText };
+type Language = NonNullable<Profile['languages']>[number];
+type LanguageContent = Omit<Language, 'name'> & { name: LocalizedText };
 type Project = NonNullable<Profile['projects']>[number];
 type ProjectContent = Omit<Project, 'title' | 'description'> & {
   title: LocalizedText;
@@ -39,12 +41,21 @@ type PositionContent = Omit<Profile['currentPosition'], 'title' | 'description'>
 
 export type ProfileContent = Omit<
   Profile,
-  'summary' | 'currentPosition' | 'experience' | 'skills' | 'education' | 'certifications' | 'projects' | 'links'
+  | 'summary'
+  | 'currentPosition'
+  | 'experience'
+  | 'skills'
+  | 'languages'
+  | 'education'
+  | 'certifications'
+  | 'projects'
+  | 'links'
 > & {
   summary: LocalizedText;
   currentPosition: PositionContent;
   experience: ExperienceContent[];
   skills: SkillContent[];
+  languages?: LanguageContent[];
   education?: EducationContent[];
   certifications?: CertificationContent[];
   projects?: ProjectContent[];
@@ -86,6 +97,7 @@ export function resolveProfile(content: ProfileContent, locale: Locale): Profile
       title: text(entry.title),
       description: text(entry.description),
     })),
+    languages: content.languages?.map((entry) => ({ ...entry, name: text(entry.name) })),
     certifications: content.certifications?.map((entry) => ({ ...entry, title: text(entry.title) })),
     projects: content.projects?.map((entry) => ({
       ...entry,

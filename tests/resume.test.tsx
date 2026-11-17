@@ -22,6 +22,7 @@ describe('résumé integration', () => {
       labels.summary,
       labels.experience,
       labels.skills,
+      labels.languages,
       labels.education,
     ];
     const positions = order.map((section) => text.indexOf(section));

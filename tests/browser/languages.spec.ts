@@ -15,6 +15,11 @@ test.describe('static English portfolio', () => {
     await page.getByRole('link', { name: 'EN · English', exact: true }).click();
     await expect(page).toHaveURL('/en/?lang=en');
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    const languages = page.getByRole('region', { name: messages.en.languages });
+    await expect(languages.getByText('Portuguese', { exact: true })).toBeVisible();
+    await expect(languages.getByText('Native', { exact: true })).toBeVisible();
+    await expect(languages.getByText('English', { exact: true })).toBeVisible();
+    await expect(languages.getByText('Advanced', { exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: messages.en.experienceTitle })).toBeVisible();
     await expect(page.getByRole('link', { name: 'EN · English', exact: true })).toHaveAttribute('aria-current', 'page');
     const cta = page.getByRole('link', { name: messages.en.download });
@@ -27,6 +32,8 @@ test.describe('static English portfolio', () => {
     expect(text).toContain(profiles.en.summary);
     expect(text).toContain('Since Mar 2026');
     expect(text).toContain('Tech Lead · Portals');
+    expect(text).toContain('Portuguese · Native');
+    expect(text).toContain('English · Advanced');
     await page.getByRole('link', { name: 'PT · Português', exact: true }).click();
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
     await expect(page.getByRole('link', { name: messages['pt-BR'].download })).toHaveAttribute(

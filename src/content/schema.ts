@@ -41,6 +41,7 @@ const education = z.strictObject({
 });
 
 const certification = z.strictObject({ id, title: text, issuer: text, issued: date, source });
+const language = z.strictObject({ id, name: text, proficiency: z.enum(['native', 'advanced']), source });
 
 const httpsLink = z.url({ protocol: /^https$/ }).refine((value) => {
   const url = URL.parse(value);
@@ -85,13 +86,22 @@ export const profileSchema = z
     }),
     experience: z.array(experience).min(1),
     skills: z.array(skills).min(1),
+    languages: z.array(language).optional(),
     education: z.array(education).optional(),
     certifications: z.array(certification).optional(),
     projects: z.array(project).optional(),
     links: z.array(link).min(1),
   })
   .superRefine((profile, context) => {
-    const collections = ['experience', 'skills', 'education', 'certifications', 'projects', 'links'] as const;
+    const collections = [
+      'experience',
+      'skills',
+      'languages',
+      'education',
+      'certifications',
+      'projects',
+      'links',
+    ] as const;
 
     for (const collection of collections) {
       const entries = profile[collection] ?? [];

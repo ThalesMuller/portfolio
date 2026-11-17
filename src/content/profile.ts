@@ -208,10 +208,6 @@ export const profileContent = {
           'pt-BR': 'Documentação técnica',
           en: 'Technical documentation',
         },
-        {
-          'pt-BR': 'Inglês · competência profissional completa',
-          en: 'English · Full professional proficiency',
-        },
       ],
       sources: ['user-resume'],
     },
@@ -257,6 +253,20 @@ export const profileContent = {
         },
       ],
       sources: ['user-resume', 'portfolio-2022', 'project-notes-2022'],
+    },
+  ],
+  languages: [
+    {
+      id: 'portuguese',
+      name: { 'pt-BR': 'Português', en: 'Portuguese' },
+      proficiency: 'native',
+      source: 'owner',
+    },
+    {
+      id: 'english',
+      name: { 'pt-BR': 'Inglês', en: 'English' },
+      proficiency: 'advanced',
+      source: 'owner',
     },
   ],
   education: [

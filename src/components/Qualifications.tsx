@@ -5,6 +5,7 @@ import { defaultLocale, type Locale } from '../i18n/locale.ts';
 import { messages } from '../i18n/messages.ts';
 
 export function Qualifications({
+  languages,
   education,
   certifications,
   projects,
@@ -13,6 +14,23 @@ export function Qualifications({
   const labels = messages[locale];
   return (
     <>
+      {!!languages?.length && (
+        <section className="section-pad qualifications" id="idiomas" aria-labelledby="languages-title">
+          <div className="shell section-split">
+            <h2 className="section-title" id="languages-title">
+              {labels.languages}
+            </h2>
+            <ul className="facts">
+              {languages.map(({ id, name, proficiency }) => (
+                <li key={id}>
+                  <h3>{name}</h3>
+                  <p>{labels[proficiency]}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
       {!!education?.length && (
         <section className="section-pad qualifications" aria-labelledby="education-title">
           <div className="shell section-split">

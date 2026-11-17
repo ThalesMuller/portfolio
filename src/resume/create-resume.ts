@@ -67,6 +67,18 @@ function resumeSections(profile: Profile, locale: Locale): Section[] {
     },
   ];
 
+  if (profile.languages?.length) {
+    sections.push({
+      title: labels.languages,
+      blocks: [
+        profile.languages.map(({ name, proficiency }) => ({
+          style: 'body',
+          content: `${name} · ${labels[proficiency]}`,
+        })),
+      ],
+    });
+  }
+
   if (profile.education?.length) {
     sections.push({
       title: labels.education,

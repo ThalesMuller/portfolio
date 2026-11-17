@@ -10,6 +10,7 @@ Mantenha as versões `pt-BR` e `en` de cada texto editorial no mesmo campo. Data
 | Descrever o cargo atual                     | `experience`, no cargo com `period.current: true` dentro do vínculo com a empresa       |
 | Adicionar experiência                       | `experience`, da mais recente para a mais antiga, com um ou mais cargos por organização |
 | Atualizar competências                      | `skills` e, quando necessário, as referências de tecnologias nas experiências           |
+| Atualizar idiomas e proficiência            | `languages`, com nome traduzido, nível compartilhado e fonte                            |
 | Adicionar certificação, projeto ou formação | `certifications`, `projects` ou `education`                                             |
 | Adicionar contato                           | `links`, com HTTPS ou `mailto:`                                                         |
 
@@ -37,7 +38,7 @@ Anexe o PDF exportado do LinkedIn ou o currículo que deseja usar a uma sessão 
 
 A consulta pública ao LinkedIn em 17/11/2026 retornou HTTP 999. A exportação fornecida permitiu importar o histórico profissional e o início do cargo Tech Lead na Livelo em novembro de 2024. Depois, as confirmações diretas do titular atualizaram o escopo atual e corrigiram a formação, conforme registrado abaixo.
 
-O PDF registra sobreposição entre os cargos da Compass em agosto e setembro de 2023. As datas foram preservadas conforme a fonte. O nível de inglês traduz `Full Professional` como competência profissional completa.
+O PDF registra sobreposição entre os cargos da Compass em agosto e setembro de 2023. As datas foram preservadas conforme a fonte. A exportação registrava inglês como `Full Professional`; a confirmação posterior do titular define o quadro de idiomas como português nativo e inglês avançado, em português e inglês, sem inferir equivalência CEFR.
 
 Redux Toolkit, SQL, Git, Azure Pipelines, SonarQube e Jest continuam apoiados nas fontes históricas indicadas nos registros correspondentes. A bolsa acadêmica de 2017 a 2019 também permanece ligada ao histórico de 2022. Nomes de clientes sem descrição de escopo, avaliações percentuais de habilidade e atividades antigas menos relevantes permanecem no histórico do Git.
 
@@ -50,3 +51,5 @@ O titular confirmou a mudança para QEO em março de 2026. O vínculo interno co
 A stack confirmada inclui Java, Spring, React com single-spa, BFFs NestJS, Oracle, RabbitMQ, SQS/SNS e Redis. As competências exibem Java e Spring como famílias de tecnologia. MongoDB e CQRS continuam apoiados no histórico da exportação.
 
 O titular também confirmou uso profissional de Gemini e Kiro, participação no desenvolvimento de um MCP e criação de agentes no Copilot. O uso de Codex para skills e agentes pertence aos projetos pessoais. A descrição contextual dessa competência é compartilhada pelo site e pelo PDF.
+
+O titular confirmou português nativo e inglês avançado em 17/11/2026. Os idiomas têm seção própria no site e nos currículos. `languages[].proficiency` armazena o nível uma única vez; os rótulos Nativo/Native e Avançado/Advanced são apresentados conforme o idioma da página ou do PDF. A menção anterior a inglês no grupo de liderança foi substituída por essa seção.

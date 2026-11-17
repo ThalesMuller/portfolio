@@ -20,6 +20,11 @@ test('serves a readable static homepage and working section and contact links', 
   await expect(page.getByRole('heading', { level: 1, name: profile.name })).toBeVisible();
   await expect(page.getByText(profile.currentPosition.title, { exact: true }).first()).toBeVisible();
   expect(await page.locator('script[type="module"][src]').count()).toBe(1);
+  const languages = page.getByRole('region', { name: labels.languages });
+  await expect(languages.getByText('Português', { exact: true })).toBeVisible();
+  await expect(languages.getByText('Nativo', { exact: true })).toBeVisible();
+  await expect(languages.getByText('Inglês', { exact: true })).toBeVisible();
+  await expect(languages.getByText('Avançado', { exact: true })).toBeVisible();
   for (const group of profile.experience) {
     await expect(page.getByRole('heading', { name: group.organization })).toBeVisible();
   }
