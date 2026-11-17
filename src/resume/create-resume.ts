@@ -56,10 +56,10 @@ function resumeSections(profile: Profile): Section[] {
     {
       title: labels.skills,
       blocks: [
-        profile.skills.map(({ title, items }) => ({
-          style: 'body',
-          content: `${title} · ${items.join(', ')}`,
-        })),
+        profile.skills.flatMap(({ title, description, items }): Line[] => [
+          { style: 'body', content: `${title} · ${items.join(', ')}` },
+          ...(description ? [{ style: 'body' as const, content: description }] : []),
+        ]),
       ],
     },
   ];

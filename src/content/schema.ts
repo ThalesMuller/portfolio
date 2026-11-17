@@ -53,6 +53,7 @@ const link = z.strictObject({
 const skills = z.strictObject({
   id,
   title: text,
+  description: text.optional(),
   items: z.array(text).min(1),
   sources: z.array(source).min(1),
 });

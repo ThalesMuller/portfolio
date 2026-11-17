@@ -379,6 +379,11 @@ svg {
   overflow-wrap: anywhere;
 }
 
+.skill-description {
+  margin-bottom: 0.85rem;
+  color: var(--quiet);
+}
+
 .expertise {
   background: var(--panel);
   border-block: 1px solid var(--line);

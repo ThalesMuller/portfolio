@@ -4,15 +4,26 @@ export const profile = profileSchema.parse({
   name: 'Thales Eduardo Müller',
   displayName: 'Thales Müller',
   summary:
-    'Lidero tecnicamente os portais Operador e Seller da Livelo, com foco em arquitetura escalável, qualidade de código e evolução sustentável dos produtos.',
+    'Lidero tecnicamente o time de campanhas do Shopping Livelo, com foco em performance e confiabilidade nas regras comerciais de carrinho e checkout.',
   currentPosition: {
     title: 'Tech Lead',
     organization: 'Livelo Brasil',
     start: '2024-11',
     description:
-      'Sou responsável pelo core técnico dos portais Operador e Seller, com micro frontends em React e TypeScript, NestJS como BFF e Java com CQRS. Atuo na padronização arquitetural, documentação técnica e evolução das práticas de engenharia.',
-    technologies: ['React', 'TypeScript', 'NestJS', 'Java', 'CQRS', 'MongoDB', 'Oracle'],
-    source: 'user-resume',
+      'Atualmente, atuo nos sistemas de cadastro de campanhas e nas regras de custo por ponto (CPP), paridade de acúmulo e comissionamento. O time responde pelos cálculos de carrinho e checkout e pelo pré-processamento diário do catálogo, com foco em baixa latência.',
+    technologies: [
+      'Java',
+      'Spring',
+      'React',
+      'single-spa',
+      'NestJS',
+      'Oracle',
+      'RabbitMQ',
+      'Amazon SQS',
+      'Amazon SNS',
+      'Redis',
+    ],
+    source: 'owner',
   },
   experience: [
     {
@@ -76,14 +87,22 @@ export const profile = profileSchema.parse({
     {
       id: 'front-end',
       title: 'Front-end',
-      items: ['React', 'TypeScript', 'JavaScript', 'Micro frontends', 'Redux Toolkit', 'styled-components'],
-      sources: ['user-resume', 'portfolio-2022', 'project-notes-2022'],
+      items: [
+        'React',
+        'TypeScript',
+        'single-spa',
+        'JavaScript',
+        'Micro frontends',
+        'Redux Toolkit',
+        'styled-components',
+      ],
+      sources: ['owner', 'user-resume', 'portfolio-2022', 'project-notes-2022'],
     },
     {
       id: 'back-end',
       title: 'Back-end e dados',
-      items: ['NestJS', 'Java', 'CQRS', 'MongoDB', 'Oracle', 'C#', 'Entity Framework', 'SQL'],
-      sources: ['user-resume', 'portfolio-2022', 'project-notes-2022'],
+      items: ['Java', 'Spring', 'NestJS', 'Oracle', 'CQRS', 'MongoDB', 'C#', 'Entity Framework', 'SQL'],
+      sources: ['owner', 'user-resume', 'portfolio-2022', 'project-notes-2022'],
     },
     {
       id: 'leadership',
@@ -98,6 +117,20 @@ export const profile = profileSchema.parse({
       sources: ['user-resume'],
     },
     {
+      id: 'messaging',
+      title: 'Mensageria e cache',
+      items: ['RabbitMQ', 'Amazon SQS', 'Amazon SNS', 'Redis'],
+      sources: ['owner'],
+    },
+    {
+      id: 'ai-engineering',
+      title: 'IA aplicada à engenharia',
+      description:
+        'Participação no desenvolvimento de um MCP e criação de agentes no Copilot. Uso pessoal de Codex para criar skills e agentes.',
+      items: ['Gemini', 'Kiro', 'Copilot', 'Codex'],
+      sources: ['owner'],
+    },
+    {
       id: 'engineering',
       title: 'Qualidade e entrega',
       items: ['Git', 'Azure DevOps', 'Azure Pipelines', 'CI/CD', 'SonarQube', 'Jest', 'Revisão de código'],
@@ -109,8 +142,18 @@ export const profile = profileSchema.parse({
       id: 'analise-desenvolvimento-sistemas',
       title: 'Análise e Desenvolvimento de Sistemas',
       institution: 'Universidade de Santa Cruz do Sul (UNISC)',
-      period: { start: '2017', end: '2024-12' },
-      source: 'user-resume',
+      period: { start: '2024', end: '2024-12' },
+      description:
+        'Curso concluído em dezembro de 2024, após transferência e aproveitamento de estudos. Formatura em abril de 2025.',
+      source: 'owner',
+    },
+    {
+      id: 'engenharia-computacao',
+      title: 'Engenharia de Computação',
+      institution: 'Universidade de Santa Cruz do Sul (UNISC)',
+      period: { start: '2017', end: '2023' },
+      description: 'Curso trancado em 2023. Transferência para Análise e Desenvolvimento de Sistemas em 2024.',
+      source: 'owner',
     },
     {
       id: 'bolsa',

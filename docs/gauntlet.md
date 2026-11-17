@@ -56,3 +56,13 @@ Um revisor independente comparou o conteúdo com todas as páginas de origem e c
 O teste de texto nativo em 200% identificou largura de 347 px em uma tela de 320 px com o conteúdo importado. A quebra de palavras foi aplicada por herança ao corpo da página para comportar os termos longos das descrições. A revalidação independente registrou fonte raiz de 32 px e largura de documento de 320 px, sem overflow de elementos ou texto. Screenshots reais em 320, 390, 768 e 1440 px e axe em 390 e 1440 px também passaram. As baselines foram atualizadas após essa inspeção.
 
 `npm run check` passou novamente após a importação, com 15 testes unitários/de integração e 13 de browser, incluindo a comparação das baselines revisadas. A cobertura atual é de 100% das linhas e 95,09% dos branches da lógica de aplicação. Gitleaks verificou a árvore atualizada sem achados.
+
+## Correções de formação e atuação atual
+
+As confirmações diretas do titular passaram a sustentar a trajetória acadêmica e o escopo recente na Livelo. O perfil apresenta Engenharia de Computação de 2017 a 2023, com trancamento, e ADS em 2024, concluído em dezembro, com formatura em abril de 2025. O resumo e a experiência atual tratam de campanhas, CPP, paridade, comissionamento e performance de carrinho e checkout. Novembro de 2024 representa o início do cargo na empresa.
+
+As competências incluem a stack atual, mensageria/cache e uma descrição curta da experiência com MCP e agentes. O texto contextual separa a experiência profissional do uso pessoal de Codex e é gerado no site e no PDF a partir do mesmo campo opcional.
+
+Dois revisores independentes conferiram fatos, concisão, proveniência, screenshots desktop/mobile, reflow com fonte de 32 px e as duas páginas A4. Axe retornou zero violações em desktop e celular. O único achado documental foi corrigido e revalidado. As evidências desta rodada estão em `.qa/campaign-update/`.
+
+O gate completo passou com 15 testes unitários/de integração e 13 testes de browser. A cobertura da lógica de aplicação ficou em 100% de linhas e 94,33% de branches. Gitleaks verificou a árvore candidata sem achados.

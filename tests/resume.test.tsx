@@ -43,6 +43,7 @@ describe('résumé integration', () => {
     next.currentPosition.description =
       'Descrição longa para verificar a quebra de página em um currículo. '.repeat(125) + endMarker;
     next.skills[0].items.push('Ferramenta de teste');
+    next.skills[0].description = 'Contexto verificável da competência.';
     next.certifications = [
       { id: 'fixture', title: 'Certificação de teste', issuer: 'Emissor', issued: '2024-08', source: 'owner' },
     ];
@@ -64,6 +65,7 @@ describe('résumé integration', () => {
       newDescription,
       endMarker,
       'Ferramenta de teste',
+      'Contexto verificável da competência.',
       'Certificação de teste',
       'Projeto de teste',
     ]) {

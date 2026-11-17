@@ -16,7 +16,7 @@ export function Skills({ skills }: Pick<Profile, 'skills'>) {
           {labels.skills}
         </h2>
         <div className="skills-grid">
-          {skills.map(({ id, title, items }) => {
+          {skills.map(({ id, title, description, items }) => {
             const Icon = skillIcons.get(id) ?? Layers3;
             return (
               <article className="skill-group" key={id}>
@@ -24,6 +24,7 @@ export function Skills({ skills }: Pick<Profile, 'skills'>) {
                   <Icon size={22} strokeWidth={1.7} />
                 </span>
                 <h3>{title}</h3>
+                {description && <p className="skill-description">{description}</p>}
                 <ul className="skill-list">
                   {items.map((item) => (
                     <li key={item}>{item}</li>
